@@ -612,6 +612,7 @@ int split_image_dtb(Utf8CStr filename, bool skip_decomp) {
     mmap_data img(filename.c_str());
 
     if (size_t off = find_dtb_offset(img.data(), img.size()); off > 0) {
+        fprintf(stderr, "%s: offset: %d\n", __func__, off);
         FileFormat fmt = check_fmt_lg(img.data(), img.size());
         if (!skip_decomp && fmt_compressed(fmt)) {
             int fd = creat(KERNEL_FILE, 0644);
